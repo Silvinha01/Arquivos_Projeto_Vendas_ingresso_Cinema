@@ -42,6 +42,21 @@ public class RepositorioVendas {
     }
 
     /**
+     * Esse método mostra lista de vendas por sessão.
+     *
+     * @author silvinha01
+     */
+    public List<Venda> getListaVendasPorSessao(int codSessao) {
+        List<Venda> vendasPorSessao = new ArrayList<Venda>();
+        for (Venda venda : listaVendas) {
+            if (venda.getSessao().getCodigo() == codSessao) {
+                vendasPorSessao.add(venda);
+            }
+        }
+        return (vendasPorSessao);
+    }
+
+    /**
      * Esse método verifica se existe uma sessão especifica na lista de vendas.
      *
      * @author silvinha01
@@ -53,6 +68,22 @@ public class RepositorioVendas {
             }
         }
         return false;
+    }
+
+    /**
+     * Esse método busca uma sessão na lista de vendas e retorna um ArrayList de
+     * vendas.
+     *
+     * @author silvinha01
+     */
+    public List<Venda> buscarVendaPorSessao(int codSessao) {
+        List<Venda> vendas = new ArrayList<Venda>();
+        for (Venda venda : listaVendas) {
+            if (venda.getSessao().getCodigo() == codSessao) {
+                vendas.add(venda);
+            }
+        }
+        return (vendas);
     }
 
     /**
@@ -87,7 +118,7 @@ public class RepositorioVendas {
 
     /**
      * Esse método busca um filme na lista de vendas e retorna um ArrayList de
-     * vendas.
+     * vendas. um Array
      *
      * @author silvinha01
      */

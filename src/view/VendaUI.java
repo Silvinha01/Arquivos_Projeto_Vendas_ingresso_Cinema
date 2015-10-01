@@ -81,7 +81,6 @@ public class VendaUI {
 
                 //Instancia a venda
                 Venda venda = new Venda(sessao, qtdIngressos);
-                System.out.println("Quantidade de ingressos disponíveis para venda: " + qtdIngressos);
 
                 //Adiciona venda no repositório
                 listaVendas.addVenda(venda);

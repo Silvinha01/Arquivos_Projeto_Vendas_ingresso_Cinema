@@ -84,9 +84,9 @@ public class RelatorioUI {
                     + String.format("%-10s", "|NÚMERO DA SALA") + "\t"
                     + String.format("%-20s", "|QUANTIDADE DE ASSENTOS") + "\t"
                     + String.format("%-10s", "|HORÁRIO"));
-            for (Venda venda : listaVendas.getListaVendas()) {
+            for (Venda venda : listaVendas.getListaVendasPorFilme(nome)) {
                 System.out.println(String.format("%-20s", venda.getSessao().getFilme().getNomeFilme())
-                        + String.format("%-15s", venda.getSessao().getCodigo()) + "\t"
+                        + String.format("%-15s", "|" + venda.getSessao().getCodigo()) + "\t"
                         + String.format("%-10s", "|" + venda.getSessao().getSala().getNumeroSala()) + "\t"
                         + String.format("%-20s", "|" + venda.getSessao().getSala().getQtdAssentos()) + "\t"
                         + String.format("%-10s", "|" + DateUtil.hourToString(venda.getSessao().getHorario())));
@@ -115,9 +115,9 @@ public class RelatorioUI {
                         + String.format("%-10s", "|NÚMERO DA SALA") + "\t"
                         + String.format("%-20s", "|QUANTIDADE DE ASSENTOS") + "\t"
                         + String.format("%-20s", "|FILME"));
-                for (Venda venda : listaVendas.getListaVendas()) {
+                for (Venda venda : listaVendas.getListaVendasPorHorario(horario)) {
                     System.out.println(String.format("%-10s", DateUtil.hourToString(venda.getSessao().getHorario())) + "\t"
-                            + String.format("%-15s", venda.getSessao().getCodigo()) + "\t"
+                            + String.format("%-15s", "|" + venda.getSessao().getCodigo()) + "\t"
                             + String.format("%-10s", "|" + venda.getSessao().getSala().getNumeroSala()) + "\t"
                             + String.format("%-20s", "|" + venda.getSessao().getSala().getQtdAssentos()) + "\t"
                             + String.format("%-20s", "|" + venda.getSessao().getFilme().getNomeFilme()));
@@ -142,13 +142,13 @@ public class RelatorioUI {
         if (listaVendas.vendaSalaExiste(numero)) {
             System.out.println("-----------------------------\n");
             System.out.println(String.format("%-10s", "NÚMERO DA SALA") + "\t"
-                    + String.format("%-15s", "|CÓDIGO SESSÃO") + "\t"                    
+                    + String.format("%-15s", "|CÓDIGO SESSÃO") + "\t"
                     + String.format("%-20s", "|QUANTIDADE DE ASSENTOS") + "\t"
                     + String.format("%-10s", "|HORÁRIO") + "\t"
                     + String.format("%-20s", "|FILME"));
-            for (Venda venda : listaVendas.getListaVendas()) {
+            for (Venda venda : listaVendas.getListaVendasPorSala(numero)) {
                 System.out.println(String.format("%-10s", venda.getSessao().getSala().getNumeroSala()) + "\t"
-                        + String.format("%-15s", venda.getSessao().getCodigo()) + "\t"                       
+                        + String.format("%-15s", "|" + venda.getSessao().getCodigo()) + "\t"
                         + String.format("%-20s", "|" + venda.getSessao().getSala().getQtdAssentos()) + "\t"
                         + String.format("%-10s", "|" + DateUtil.hourToString(venda.getSessao().getHorario())) + "\t"
                         + String.format("%-20s", "|" + venda.getSessao().getFilme().getNomeFilme()));
@@ -164,22 +164,28 @@ public class RelatorioUI {
      * @author silvinha01
      */
     private void listarVendasPorSessao() {
-        System.out.println("\nLista de Vendas");
+        System.out.println("\nLista de Vendas por Sessão");
+        int numSessao = Console.scanInt("Digite o Código da Sessão: ");
+
         if (!listaVendas.temVendas()) {
             System.out.println("Nenhuma venda foi cadastrada!");
         } else {
-            System.out.println("-----------------------------\n");
-            System.out.println(String.format("%-15s", "CÓDIGO SESSÃO") + "\t"
-                    + String.format("%-10s", "|NÚMERO DA SALA") + "\t"
-                    + String.format("%-20s", "|QUANTIDADE DE ASSENTOS") + "\t"
-                    + String.format("%-10s", "|HORÁRIO") + "\t"
-                    + String.format("%-20s", "|FILME"));
-            for (Venda venda : listaVendas.getListaVendas()) {
-                System.out.println(String.format("%-15s", venda.getSessao().getCodigo()) + "\t"
-                        + String.format("%-10s", "|" + venda.getSessao().getSala().getNumeroSala()) + "\t"
-                        + String.format("%-20s", "|" + venda.getSessao().getSala().getQtdAssentos()) + "\t"
-                        + String.format("%-10s", "|" + DateUtil.hourToString(venda.getSessao().getHorario())) + "\t"
-                        + String.format("%-20s", "|" + venda.getSessao().getFilme().getNomeFilme()));
+            if (listaVendas.vendaExiste(numSessao)) {
+                System.out.println("-----------------------------\n");
+                System.out.println(String.format("%-15s", "CÓDIGO SESSÃO") + "\t"
+                        + String.format("%-10s", "|NÚMERO DA SALA") + "\t"
+                        + String.format("%-20s", "|QUANTIDADE DE ASSENTOS") + "\t"
+                        + String.format("%-10s", "|HORÁRIO") + "\t"
+                        + String.format("%-20s", "|FILME"));
+                for (Venda venda : listaVendas.getListaVendasPorSessao(numSessao)) {
+                    System.out.println(String.format("%-15s", venda.getSessao().getCodigo()) + "\t"
+                            + String.format("%-10s", "|" + venda.getSessao().getSala().getNumeroSala()) + "\t"
+                            + String.format("%-20s", "|" + venda.getSessao().getSala().getQtdAssentos()) + "\t"
+                            + String.format("%-10s", "|" + DateUtil.hourToString(venda.getSessao().getHorario())) + "\t"
+                            + String.format("%-20s", "|" + venda.getSessao().getFilme().getNomeFilme()));
+                }
+            } else {
+                System.out.println("Esta sessão não está cadastrada ou não realizou nenhuma venda!");
             }
         }
     }
