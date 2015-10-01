@@ -1,11 +1,13 @@
 package view;
 
+import java.util.InputMismatchException;
 import model.Filme;
 import repositorio.RepositorioFilmes;
 import util.Console;
 import view.menu.FilmeMenu;
 
 /**
+ * Essa classe contém os métodos para filmes.
  *
  * @author silvinha01
  */
@@ -13,38 +15,54 @@ public class FilmeUI {
 
     private RepositorioFilmes listaFilmes;
 
+    /**
+     * Inicia a classe FilmeUI com seus dados. listaFilmes recebe listaFilmes.
+     */
     public FilmeUI(RepositorioFilmes listaFilmes) {
         this.listaFilmes = listaFilmes;
     }
 
+    /**
+     * Esse método executar acessa o submenu FilmeMenu e suas opções.
+     *
+     * @author silvinha01
+     */
     public void executar() {
         int opcao = 0;
         do {
-            System.out.println(FilmeMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção: ");
-            switch (opcao) {
-                case FilmeMenu.OP_CADASTRAR:
-                    cadastrarFilmes();
-                    break;
-                case FilmeMenu.OP_LISTAR:
-                    listarFilmes();
-                    break;
-                case FilmeMenu.OP_BUSCAR_CODIGO:
-                    buscarCodigoFilme();
-                    break;
-                case FilmeMenu.OP_BUSCAR_NOME:
-                    buscarNomeFilme();
-                    break;
-                case FilmeMenu.OP_VOLTAR:
-                    System.out.println("Retornando ao menu principal..");
-                    break;
-                default:
-                    System.out.println("Opção inválida..");
-
+            try {
+                System.out.println(FilmeMenu.getOpcoes());
+                opcao = Console.scanInt("Digite sua opção: ");
+                switch (opcao) {
+                    case FilmeMenu.OP_CADASTRAR:
+                        cadastrarFilmes();
+                        break;
+                    case FilmeMenu.OP_LISTAR:
+                        listarFilmes();
+                        break;
+                    case FilmeMenu.OP_BUSCAR_CODIGO:
+                        buscarCodigoFilme();
+                        break;
+                    case FilmeMenu.OP_BUSCAR_NOME:
+                        buscarNomeFilme();
+                        break;
+                    case FilmeMenu.OP_VOLTAR:
+                        System.out.println("Retornando ao menu principal..");
+                        break;
+                    default:
+                        System.out.println("Opção inválida..");
+                }
+            } catch (InputMismatchException ime) {
+                System.out.println("Opção Inválida! Não pode digitar letras ou caracteres especiais!");
             }
         } while (opcao != FilmeMenu.OP_VOLTAR);
     }
 
+    /**
+     * Esse método cadastra um novo filme na lista de filmes.
+     *
+     * @author silvinha01
+     */
     private void cadastrarFilmes() {
         String nome = Console.scanString("Nome do filme: ");
         if (listaFilmes.buscarFilmePorNome(nome) != null) {
@@ -57,6 +75,11 @@ public class FilmeUI {
         }
     }
 
+    /**
+     * Esse método lista os filmes cadastrados na lista de filmes.
+     *
+     * @author silvinha01
+     */
     public void listarFilmes() {
         System.out.println("\nLista de Filmes");
         if (!listaFilmes.temFilmes()) {
@@ -76,6 +99,11 @@ public class FilmeUI {
         }
     }
 
+    /**
+     * Esse método busca um filme pelo código digitado na lista de filmes.
+     *
+     * @author silvinha01
+     */
     public void buscarCodigoFilme() {
         System.out.println("\nBusca de filme por Código");
         int codigo = Console.scanInt("Digite o Código do filme: ");
@@ -92,12 +120,16 @@ public class FilmeUI {
                     + String.format("%-20s", "|" + filme.getNomeFilme()) + "\t"
                     + String.format("%-20s", "|" + filme.getGenero()) + "\t"
                     + String.format("%-20s", "|" + filme.getSinopse()));
-
         } else {
             System.out.println("Este Código não está cadastrado na lista de filmes!");
         }
     }
 
+    /**
+     * Esse método busca um filme pelo nome digitado na lista de filmes.
+     *
+     * @author silvinha01
+     */
     public void buscarNomeFilme() {
         System.out.println("\nBusca de filme por Nome");
         String nome = Console.scanString("Digite o Nome do filme: ");
@@ -114,7 +146,6 @@ public class FilmeUI {
                     + String.format("%-20s", "|" + filme.getNomeFilme()) + "\t"
                     + String.format("%-20s", "|" + filme.getGenero()) + "\t"
                     + String.format("%-20s", "|" + filme.getSinopse()));
-
         } else {
             System.out.println("Este nome não está cadastrado na lista de filmes!");
         }

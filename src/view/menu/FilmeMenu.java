@@ -1,6 +1,7 @@
 package view.menu;
 
 /**
+ * Essa classe FilmeMenu acessa as opções do submenu.
  *
  * @author silvinha01
  */

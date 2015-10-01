@@ -1,14 +1,16 @@
 package view;
 
+import java.text.ParseException;
 import java.util.InputMismatchException;
 import repositorio.RepositorioFilmes;
 import repositorio.RepositorioSalas;
-import repositorio.RepositorioSecoes;
+import repositorio.RepositorioSessoes;
 import repositorio.RepositorioVendas;
 import util.Console;
 import view.menu.MainMenu;
 
 /**
+ * Essa classe acessa o menu principal e os submenus.
  *
  * @author silvinha01
  */
@@ -16,17 +18,27 @@ public class MainUI {
 
     private RepositorioFilmes listaFilmes;
     private RepositorioSalas listaSalas;
-    private RepositorioSecoes listaSecoes;
     private RepositorioVendas listaVendas;
+    private RepositorioSessoes listaSecoes;
 
+    /**
+     * Inicia a classe MainUI com seus dados. listaFilmes recebe
+     * RepositorioFilmes. listaSalas recebe RepositorioSalas. listaVendas recebe
+     * RepositorioVendas. listaSessoes recebe RepositorioSessoes
+     */
     public MainUI() {
         listaFilmes = new RepositorioFilmes();
         listaSalas = new RepositorioSalas();
-        listaSecoes = new RepositorioSecoes();
         listaVendas = new RepositorioVendas();
+        listaSecoes = new RepositorioSessoes();
     }
 
-    public void executar() {
+    /**
+     * Esse método executar acessa o menu principal MainMenu e suas opções.
+     *
+     * @author silvinha01
+     */
+    public void executar() throws ParseException {
         int opcao = - 1;
         do {
             try {
@@ -40,14 +52,14 @@ public class MainUI {
                     case MainMenu.OP_SALAS:
                         new SalaUI(listaSalas).executar();
                         break;
-                    case MainMenu.OP_SECAO:
-                        new SecaoUI(listaSalas, listaFilmes, listaSecoes).executar();
+                    case MainMenu.OP_SECOES:
+                        new SessaoUI(listaSalas, listaFilmes, listaSecoes).executar();
                         break;
                     case MainMenu.OP_VENDAS:
-                        new VendaUI(listaSecoes, listaVendas).executar();
+                        new VendaUI(listaVendas, listaSecoes).executar();
                         break;
                     case MainMenu.OP_RELATORIOS:
-                        //new RelatorioUI(listaRelatorios).executar();
+                    new RelatorioUI(listaVendas).executar();
                         break;
                     case MainMenu.OP_SAIR:
                         System.out.println("Aplicação finalizada!!!");
@@ -55,11 +67,9 @@ public class MainUI {
                     default:
                         System.out.println("Opção inválida..");
                 }
-
             } catch (InputMismatchException ime) {
-                System.out.println("Opção Inválida! Não pode digitar letras!");
+                System.out.println("Opção Inválida! Não pode digitar letras ou caracteres especiais!");
             }
-
         } while (opcao != MainMenu.OP_SAIR);
     }
 

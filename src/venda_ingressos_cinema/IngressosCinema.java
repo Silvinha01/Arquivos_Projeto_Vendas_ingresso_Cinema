@@ -1,5 +1,6 @@
 package venda_ingressos_cinema;
 
+import java.text.ParseException;
 import view.MainUI;
 
 /**
@@ -8,7 +9,14 @@ import view.MainUI;
  */
 public class IngressosCinema {
 
-    public static void main(String[] args) {
+    /**
+     * Inicia a classe static void main
+     *
+     * @param args
+     * @throws java.text.ParseException Executa a view mainUI que irá acessar
+     * MainMenu
+     */
+    public static void main(String[] args) throws ParseException {
         new MainUI().executar();
     }
 
