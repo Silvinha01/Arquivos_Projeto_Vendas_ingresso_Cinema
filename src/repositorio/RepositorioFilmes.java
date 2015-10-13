@@ -86,9 +86,7 @@ public class RepositorioFilmes {
      */
     public Filme buscarFilmePorNome(String nome) {
         for (Filme filme : listaFilmes) {
-            if (filme.getNomeFilme().toLowerCase().contains(nome)) {
-                return filme;
-            } else if (filme.getNomeFilme().toUpperCase().contains(nome)) {
+            if ((filme.getNomeFilme().toLowerCase().contains(nome)) || (filme.getNomeFilme().toUpperCase().contains(nome))) {
                 return filme;
             }
         }

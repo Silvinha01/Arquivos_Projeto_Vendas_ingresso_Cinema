@@ -20,7 +20,7 @@ public class MainMenu {
                 + "2 - Menu Salas\n"
                 + "3 - Menu Seções\n"
                 + "4 - Menu Vendas\n"
-                + "5 - Menu Relatórios\n"
+                + "5 - Menu Relatórios Vendas\n"
                 + "0 - Sair da Aplicação"
                 + "\n--------------------------------------");
     }

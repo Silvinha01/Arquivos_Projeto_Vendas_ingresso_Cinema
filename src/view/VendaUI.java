@@ -44,9 +44,6 @@ public class VendaUI {
                     case VendaMenu.OP_CADASTRAR:
                         cadastrarVendas();
                         break;
-                    case VendaMenu.OP_LISTAR:
-                        listarVendas();
-                        break;
                     case VendaMenu.OP_VOLTAR:
                         System.out.println("Retornando ao menu principal..");
                         break;
@@ -75,8 +72,11 @@ public class VendaUI {
             Sessao sessao = listaSessoes.buscarSessaoPorCodigo(codigo);
 
             int qtdIngressos = Console.scanInt("\nDigite a quantidade de ingressos que irá comprar: ");
+
             if ((listaVendas.ingressosVendidosPorSessao(codigo) + qtdIngressos) > sessao.getSala().getQtdAssentos()) {
-                System.out.println("Esta sessão está com lotação esgotada ou a quantidade de ingressos disponíveis é inferior à solicitação!");
+                System.out.println("A quantidade de ingressos disponíveis é inferior à solicitação!");
+
+                System.out.println("Ingressos disponíveis para venda: " + (sessao.getSala().getQtdAssentos() - listaVendas.ingressosVendidosPorSessao(codigo)));
             } else {
 
                 //Instancia a venda
@@ -85,35 +85,12 @@ public class VendaUI {
                 //Adiciona venda no repositório
                 listaVendas.addVenda(venda);
                 System.out.println("Venda cadastrada com sucesso!");
+                if ((listaVendas.ingressosVendidosPorSessao(codigo)) == sessao.getSala().getQtdAssentos()) {
+                    System.out.println("Esta sessão está com lotação esgotada!");
+                }
             }
         } else {
             System.out.println("Código da sessão não encontrado!");
-        }
-    }
-
-    /**
-     * Esse método lista as vendas cadastradas na lista de vendas.
-     *
-     * @author silvinha01
-     */
-    private void listarVendas() {
-        System.out.println("\nLista de Vendas");
-        if (!listaVendas.temVendas()) {
-            System.out.println("Nenhuma venda foi cadastrada!");
-        } else {
-            System.out.println("-----------------------------\n");
-            System.out.println(String.format("%-10s", "CÓDIGO SESSÃO") + "\t"
-                    + String.format("%-10s", "|NÚMERO DA SALA") + "\t"
-                    + String.format("%-20s", "|QUANTIDADE DE ASSENTOS") + "\t"
-                    + String.format("%-10s", "|HORÁRIO") + "\t"
-                    + String.format("%-20s", "|FILME"));
-            for (Venda venda : listaVendas.getListaVendas()) {
-                System.out.println(String.format("%-10s", venda.getSessao().getCodigo()) + "\t"
-                        + String.format("%-10s", "|" + venda.getSessao().getSala().getNumeroSala()) + "\t"
-                        + String.format("%-20s", "|" + venda.getSessao().getSala().getQtdAssentos()) + "\t"
-                        + String.format("%-10s", "|" + DateUtil.hourToString(venda.getSessao().getHorario())) + "\t"
-                        + String.format("%-20s", "|" + venda.getSessao().getFilme().getNomeFilme()));
-            }
         }
     }
 

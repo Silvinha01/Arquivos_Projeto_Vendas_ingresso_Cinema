@@ -3,7 +3,6 @@ package repositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import model.Sessao;
 import model.Venda;
 
 /**
@@ -94,7 +93,7 @@ public class RepositorioVendas {
     public List<Venda> getListaVendasPorFilme(String nome) {
         List<Venda> vendasPorFilme = new ArrayList<Venda>();
         for (Venda venda : listaVendas) {
-            if (venda.getSessao().getFilme().getNomeFilme().equals(nome)) {
+            if ((venda.getSessao().getFilme().getNomeFilme().toLowerCase().contains(nome)) || (venda.getSessao().getFilme().getNomeFilme().toUpperCase().contains(nome))) {
                 vendasPorFilme.add(venda);
             }
         }
@@ -107,9 +106,9 @@ public class RepositorioVendas {
      *
      * @author silvinha01
      */
-    public boolean vendaFilmeExiste(String nome) {
+    public boolean vendasFilmeExiste(String nome) {
         for (Venda venda : listaVendas) {
-            if (venda.getSessao().getFilme().getNomeFilme().equals(nome)) {
+            if ((venda.getSessao().getFilme().getNomeFilme().toLowerCase().contains(nome)) || (venda.getSessao().getFilme().getNomeFilme().toUpperCase().contains(nome))) {
                 return true;
             }
         }
@@ -122,10 +121,10 @@ public class RepositorioVendas {
      *
      * @author silvinha01
      */
-    public List<Venda> buscarVendaPorFilme(String nome) {
+    public List<Venda> buscarVendasPorFilme(String nome) {
         List<Venda> vendas = new ArrayList<Venda>();
         for (Venda venda : listaVendas) {
-            if (venda.getSessao().getFilme().getNomeFilme().equals(nome)) {
+            if ((venda.getSessao().getFilme().getNomeFilme().toLowerCase().contains(nome)) || (venda.getSessao().getFilme().getNomeFilme().toUpperCase().contains(nome))) {
                 vendas.add(venda);
             }
         }
@@ -153,7 +152,7 @@ public class RepositorioVendas {
      *
      * @author silvinha01
      */
-    public boolean vendaHorarioExiste(Date horario) {
+    public boolean vendasHorarioExiste(Date horario) {
         for (Venda venda : listaVendas) {
             if (venda.getSessao().getHorario().equals(horario)) {
                 return true;
@@ -168,7 +167,7 @@ public class RepositorioVendas {
      *
      * @author silvinha01
      */
-    public List<Venda> buscarVendaPorHorario(Date horario) {
+    public List<Venda> buscarVendasPorHorario(Date horario) {
         List<Venda> vendas = new ArrayList<Venda>();
         for (Venda venda : listaVendas) {
             if (venda.getSessao().getHorario().equals(horario)) {
@@ -199,7 +198,7 @@ public class RepositorioVendas {
      *
      * @author silvinha01
      */
-    public boolean vendaSalaExiste(int numero) {
+    public boolean vendasSalaExiste(int numero) {
         for (Venda venda : listaVendas) {
             if (venda.getSessao().getSala().getNumeroSala() == numero) {
                 return true;

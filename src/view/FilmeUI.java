@@ -70,8 +70,12 @@ public class FilmeUI {
         } else {
             String genero = Console.scanString("Gênero: ");
             String sinopse = Console.scanString("Sinopse: ");
-            listaFilmes.addFilmes(new Filme(nome, genero, sinopse));
-            System.out.println("Filme " + "'" + nome + "'" + " cadastrado com sucesso!");
+            //if (!(nome.equals("") || genero.equals("") || sinopse.equals(""))) {
+                listaFilmes.addFilmes(new Filme(nome, genero, sinopse));
+                System.out.println("Filme " + "'" + nome + "'" + " cadastrado com sucesso!");
+            //} else {
+                //System.out.println("Não serão aceitos campos vazios!");
+            //}
         }
     }
 
@@ -147,7 +151,7 @@ public class FilmeUI {
                     + String.format("%-20s", "|" + filme.getGenero()) + "\t"
                     + String.format("%-20s", "|" + filme.getSinopse()));
         } else {
-            System.out.println("Este nome não está cadastrado na lista de filmes!");
+            System.out.println("Este filme não está cadastrado na lista de filmes!");
         }
     }
 

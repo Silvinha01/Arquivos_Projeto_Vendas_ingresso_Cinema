@@ -59,7 +59,7 @@ public class MainUI {
                         new VendaUI(listaVendas, listaSecoes).executar();
                         break;
                     case MainMenu.OP_RELATORIOS:
-                    new RelatorioUI(listaVendas).executar();
+                    new RelatorioVendasUI(listaVendas).executar();
                         break;
                     case MainMenu.OP_SAIR:
                         System.out.println("Aplicação finalizada!!!");

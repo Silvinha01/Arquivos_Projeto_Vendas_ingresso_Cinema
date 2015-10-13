@@ -48,7 +48,7 @@ public class RepositorioSessoes {
     public List<Sessao> getListaSessoesPorFilme(String nome) {
         List<Sessao> sessoesPorFilme = new ArrayList<Sessao>();
         for (Sessao sessao : listaSessoes) {
-            if (sessao.getFilme().getNomeFilme().equals(nome)) {
+            if ((sessao.getFilme().getNomeFilme().toLowerCase().contains(nome)) || (sessao.getFilme().getNomeFilme().toUpperCase().contains(nome))) {
                 sessoesPorFilme.add(sessao);
             }
         }
@@ -126,7 +126,7 @@ public class RepositorioSessoes {
             }
         }
         return false;
-    }    
+    }
 
     /**
      * Esse método verifica se existe uma sessão com um filme especifico na
@@ -136,7 +136,7 @@ public class RepositorioSessoes {
      */
     public boolean sessaoFilmeExiste(String nome) {
         for (Sessao sessao : listaSessoes) {
-            if (sessao.getFilme().getNomeFilme().equals(nome)) {
+            if ((sessao.getFilme().getNomeFilme().toLowerCase().contains(nome)) || (sessao.getFilme().getNomeFilme().toUpperCase().contains(nome))) {
                 return true;
             }
         }
@@ -151,7 +151,7 @@ public class RepositorioSessoes {
     public List<Sessao> buscarSessaoPorFilme(String nome) {
         List<Sessao> sessoes = new ArrayList<Sessao>();
         for (Sessao sessao : listaSessoes) {
-            if (sessao.getFilme().getNomeFilme().equals(nome)) {
+            if ((sessao.getFilme().getNomeFilme().toLowerCase().contains(nome)) || (sessao.getFilme().getNomeFilme().toUpperCase().contains(nome))) {
                 sessoes.add(sessao);
             }
         }
